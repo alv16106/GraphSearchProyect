@@ -1,16 +1,16 @@
 import math
 import utilities
 import parser
+import copy
 
 def sudokuActions(s):
   possibleActions = []
-  print(int(math.sqrt(len(s))))
   for i in range(len(s)):
     if s[i] == None:
       for k in range(1, int(math.sqrt(len(s)))+1):
         if not utilities.isDuplicate(s, i, k):
           possibleActions.append({
-            'action': lambda state: utilities.addNumber(state, i, k),
+            'action': lambda state, i=i, k=k: utilities.addNumber(state, i, k),
             'cost': 1,
             'Description': 'Poner ' + str(k) + ' en la posicion ' + str(i),
           })
@@ -26,10 +26,6 @@ def default(s):
 def getActionCreator(type):
   switcher = {
     'sudoku': sudokuActions,
-    'fifteen': fifteenActions,
+    'fifthteen': fifteenActions,
   }
-  return switcher.get(type, default(1))
-
-state = parser.getParsedInput('.4.13.4.1..4.21.')
-for x in sudokuActions(state):
-  print(x['Description'])
+  return switcher.get(type)

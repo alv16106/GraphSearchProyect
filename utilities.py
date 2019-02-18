@@ -10,7 +10,7 @@ def addNumber(matrix, position, number):
 def removeNumber(matrix, position):
   newMatrix = matrix.copy()
   newMatrix[position] = None
-  return matrix
+  return newMatrix
 
 def isDuplicate(matrix, position, number):
   size = int(math.sqrt(len(matrix)))
