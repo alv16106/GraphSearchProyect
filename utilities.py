@@ -64,3 +64,9 @@ def manhattanDistance(origin, end, size):
   x2 = int(end/size)
   y2 = int(end%size)
   return abs(x1 - x2) + abs(y1 - y2)
+
+def isVisited(new, visited):
+  for node in visited:
+    if new == node:
+      return True
+  return False

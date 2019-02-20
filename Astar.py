@@ -1,5 +1,6 @@
 import problems
 import time
+import utilities
 
 class Node():
   """A node class for A* Pathfinding"""
@@ -36,28 +37,27 @@ def aStar(problem):
     nonExplored.pop(current_index)
     explored.append(current)
 
+    print(current.board, ' Con heu ', current.f, ' El index de esta wea es ', current_index)
+
     # Lo logramos? Si si armar el path
     if problem['goalTest'](current.board):
       path = []
       while current is not None:
         path.append(current.board)
         current = current.parent
+      print(len(path))
       return path[::-1]
 
     actions = problem['actions'](current.board)
+    print('Entrando a nuevas actions')
     for action in actions:
       newState = problem['result'](current.board, action['action'])
       newNode = Node(current, newState)
       newNode.g = current.g + action['cost']
       newNode.f = problem['totalCost'](newNode.g, newState)
-      for node in explored:
-        if newNode == node:
-          continue
-      for node in nonExplored:
-        if newNode == node and newNode.g > newNode.g:
-          continue
-      nonExplored.append(newNode)
+      if not utilities.isVisited(newNode, explored):
+        nonExplored.append(newNode)
 
 
 
-print(aStar(problems.getProblem('sudoku')('.4.13.4.1..4.21.')))
+print(aStar(problems.getProblem('fifteen')('B1E5C73F294D.A68')))
