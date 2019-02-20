@@ -18,7 +18,15 @@ def sudokuActions(s):
 
 
 def fifteenActions(s):
-  return 0
+  possibleActions = []
+  nullIndex = s.index(None)
+  for i in utilities.getInterchangeblePositions(s, nullIndex):
+    possibleActions.append({
+      'action': lambda state, i=i: utilities.changePositions(state, nullIndex, i),
+      'cost': 1,
+      'Description': 'Intercambiar numero en la posicion ' + str(i) + ' con None ',
+    })
+  return possibleActions
 
 def default(s):
   raise Exception('Defina un tipo de acciones')
@@ -26,6 +34,6 @@ def default(s):
 def getActionCreator(type):
   switcher = {
     'sudoku': sudokuActions,
-    'fifthteen': fifteenActions,
+    'fifteen': fifteenActions,
   }
   return switcher.get(type)

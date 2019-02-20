@@ -12,15 +12,18 @@ def sudoku(input):
     'totalCost': lambda g, s: g + heuristics.sudokuEuristic(s),
   }
 
-def fifthteen(input):
-  pass
+def fifteen(input):
+  return {
+    'initialState': parser.getParsedInput(input),
+    'actions': actions.getActionCreator('fifteen'),
+    'result': lambda s, a: a(s),
+    'goalTest': lambda s: goalTests.fifteenTest(s),
+    'totalCost': lambda g, s: g + heuristics.fithteenHeuristics(s),
+  }
 
 def getProblem(type):
   switcher = {
     'sudoku': sudoku,
-    'fifthteen': fifthteen,
+    'fifteen': fifteen,
   }
   return switcher.get(type)
-
-sd = sudoku('.4.13.4.1..4.21.')
-print(sd['result'](1, lambda s: s + 2))

@@ -12,6 +12,28 @@ def removeNumber(matrix, position):
   newMatrix[position] = None
   return newMatrix
 
+def changePositions(matrix, null, number):
+  if matrix[null]:
+    raise Exception('Una de estas posiciones no es un vacio')
+  newMatrix = matrix.copy()
+  newMatrix[null] = newMatrix[number]
+  newMatrix[number] = None
+  return newMatrix
+
+def getInterchangeblePositions(matrix, null):
+  positions = []
+  size = int(math.sqrt(len(matrix)))
+  positions += [null + size, null - size, null + 1, null - 1]
+  if not null%size:
+    positions .remove(null - 1)
+  if null%size == size - 1:
+    positions .remove(null + 1)
+  if not int(null/4):
+    positions .remove(null - size)
+  if int(null/4) == size - 1:
+    positions .remove(null + size)
+  return positions
+
 def isDuplicate(matrix, position, number):
   size = int(math.sqrt(len(matrix)))
   row = int(position/size)
@@ -35,3 +57,10 @@ def isDuplicate(matrix, position, number):
       if matrix[k*size + l] == number:
         return True
   return False
+
+def manhattanDistance(origin, end, size):
+  x1 = int(origin/size)
+  y1 = int(origin%size)
+  x2 = int(end/size)
+  y2 = int(end%size)
+  return abs(x1 - x2) + abs(y1 - y2)

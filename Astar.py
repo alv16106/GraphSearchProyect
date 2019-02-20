@@ -24,8 +24,6 @@ def aStar(problem):
 
   #Mientras aun se pueda explorar
   while(nonExplored):
-    print('Explorados: ' + str(len(explored)))
-    print('No Explorados: ' + str(len(nonExplored)))
     current = nonExplored[0]
     current_index = 0
     #Tratamos de encontrar el mejor nodo
@@ -42,11 +40,10 @@ def aStar(problem):
     if problem['goalTest'](current.board):
       path = []
       while current is not None:
-        path.append(current.position)
+        path.append(current.board)
         current = current.parent
       return path[::-1]
 
-    print(current.board)
     actions = problem['actions'](current.board)
     for action in actions:
       newState = problem['result'](current.board, action['action'])
@@ -59,7 +56,6 @@ def aStar(problem):
       for node in nonExplored:
         if newNode == node and newNode.g > newNode.g:
           continue
-      print(newNode)
       nonExplored.append(newNode)
 
 
