@@ -5,4 +5,4 @@ Este proyecto cuenta con un ambiente virtual accesible desde la carpeta *./domin
 ``` source dominate/bin/activate ```
 
 ### Utilizacion
-```python Astar.py [PROBLEMA TABLERO]
+```python Astar.py [PROBLEMA TABLERO]```
