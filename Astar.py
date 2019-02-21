@@ -1,6 +1,8 @@
 import problems
 import time
 import utilities
+import sys
+import htmlGenerator
 
 class Node():
   """A node class for A* Pathfinding"""
@@ -37,8 +39,6 @@ def aStar(problem):
     nonExplored.pop(current_index)
     explored.append(current)
 
-    print(current.board, ' Con heu ', current.f, ' El index de esta wea es ', current_index)
-
     # Lo logramos? Si si armar el path
     if problem['goalTest'](current.board):
       path = []
@@ -49,7 +49,6 @@ def aStar(problem):
       return path[::-1]
 
     actions = problem['actions'](current.board)
-    print('Entrando a nuevas actions')
     for action in actions:
       newState = problem['result'](current.board, action['action'])
       newNode = Node(current, newState)
@@ -58,6 +57,6 @@ def aStar(problem):
       if not utilities.isVisited(newNode, explored):
         nonExplored.append(newNode)
 
-
-
-print(aStar(problems.getProblem('fifteen')('B1E5C73F294D.A68')))
+path = aStar(problems.getProblem(sys.argv[1])(sys.argv[2]))
+htmlGenerator.createPath(path, sys.argv[1])
+# 'B1E5C73F294D.A68'

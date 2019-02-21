@@ -1,4 +1,5 @@
 import math
+import parser
 
 def addNumber(matrix, position, number):
   if matrix[position]:
@@ -25,13 +26,13 @@ def getInterchangeblePositions(matrix, null):
   size = int(math.sqrt(len(matrix)))
   positions += [null + size, null - size, null + 1, null - 1]
   if not null%size:
-    positions .remove(null - 1)
+    positions.remove(null - 1)
   if null%size == size - 1:
-    positions .remove(null + 1)
+    positions.remove(null + 1)
   if not int(null/4):
-    positions .remove(null - size)
+    positions.remove(null - size)
   if int(null/4) == size - 1:
-    positions .remove(null + size)
+    positions.remove(null + size)
   return positions
 
 def isDuplicate(matrix, position, number):
@@ -65,8 +66,27 @@ def manhattanDistance(origin, end, size):
   y2 = int(end%size)
   return abs(x1 - x2) + abs(y1 - y2)
 
+def euclideanDistance(origin, end, size):
+  x1 = int(origin/size)
+  y1 = int(origin%size)
+  x2 = int(end/size)
+  y2 = int(end%size)
+  return math.sqrt(math.pow(x1 - x2, 2) + math.pow(y1 - y2, 2))
+
 def isVisited(new, visited):
   for node in visited:
     if new == node:
       return True
+  return False
+
+def isFifteenSolvable(board):
+  blankRow = int(board.index(None)/4)
+  inversions = 0
+  for position, number in enumerate(board):
+    for i in board[position:len(board)]:
+      if i and number and i < number:
+        inversions += 1
+  print('Row:', blankRow, ' inversiones:', inversions)
+  if blankRow%2 and not inversions%2:
+    return True
   return False

@@ -1,6 +1,7 @@
 import parser
 import goalTests
 import actions
+import utilities
 import heuristics
 
 def sudoku(input):
@@ -13,8 +14,11 @@ def sudoku(input):
   }
 
 def fifteen(input):
+  state = parser.getParsedInput(input)
+  if not utilities.isFifteenSolvable(state):
+    raise Exception('Este fifteen puzzle no es resoluble. GG')
   return {
-    'initialState': parser.getParsedInput(input),
+    'initialState': state,
     'actions': actions.getActionCreator('fifteen'),
     'result': lambda s, a: a(s),
     'goalTest': lambda s: goalTests.fifteenTest(s),
