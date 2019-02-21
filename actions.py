@@ -23,7 +23,7 @@ def fifteenActions(s):
   for i in utilities.getInterchangeblePositions(s, nullIndex):
     possibleActions.append({
       'action': lambda state, i=i: utilities.changePositions(state, nullIndex, i),
-      'cost': 1,
+      'cost': 0,
       'Description': 'Intercambiar numero en la posicion ' + str(i) + ' con None ',
     })
   return possibleActions
